@@ -7,6 +7,9 @@ module.exports = {
     './plugins/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
+    fontFamily: {
+      sans: ['Roboto'],
+    },
     extend: {
       colors: {
         'accent-1': '#FAFAFA',
@@ -16,6 +19,9 @@ module.exports = {
         cyan: '#79FFE1',
         'blue-500': '#2276FC',
         'yellow-100': '#fef7da',
+        brand: '#A64AEE',
+        'brand-10': 'rgba(166, 74, 238, 0.1);',
+        'brand-orange': '#F69A36',
       },
       spacing: {
         28: '7rem',
