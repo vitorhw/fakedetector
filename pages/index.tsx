@@ -48,8 +48,8 @@ export default function Page(props: PageProps) {
 
   return (
     <main className="mx-auto mt-8 flex max-w-6xl flex-col gap-8 md:gap-[4.5rem]">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center px-6 text-[2rem] font-bold md:px-0 md:text-[3rem]">
+      <div className="flex items-center justify-between px-6 md:px-0">
+        <div className="flex items-center text-[2rem] font-bold md:text-[3rem]">
           {/* <spanirTrafficControl size={54} /> */}
           <span>fake</span>
           <span className="text-brand">detector</span>
@@ -68,9 +68,12 @@ export default function Page(props: PageProps) {
             required
           />
         </form>
+        <button className="md:hidden">
+          <MagnifyingGlass size={32} color="black" className="opacity-60" />
+        </button>
       </div>
       <div className="flex flex-col gap-8 text-xl md:flex-row md:gap-16">
-        <nav className="flex snap-x items-start gap-4 overflow-scroll px-6 md:sticky md:top-0 md:flex-col md:px-0">
+        <nav className="flex snap-x items-start gap-4 overflow-scroll px-6 scrollbar-hide md:sticky md:top-0 md:flex-col md:px-0">
           <Link
             href="/"
             className="flex snap-center flex-row items-center gap-8 rounded bg-brand p-4"
