@@ -19,7 +19,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
             excerpt={post.excerpt}
           />
         ))}
-      </div>
+      </div> 
     </section>
   )
 }
