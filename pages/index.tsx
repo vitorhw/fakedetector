@@ -1,10 +1,8 @@
-import { getAllPosts, getSettings } from 'lib/sanity.client'
+import { getAllPosts } from 'lib/sanity.client'
 import { Post } from 'lib/sanity.queries'
-import { GetStaticProps } from 'next'
-import { House, TrendUp, Receipt } from '@phosphor-icons/react'
-import Link from 'next/link'
 import { NewHeader } from 'components/NewHeader'
-import NewPostList from 'components/NewPostList'
+import { NewPostList } from 'components/NewPostList'
+import { NewNavigation } from 'components/NewNavigation'
 
 export default function Page({ posts }: { posts: Post[] }) {
   return (
@@ -12,29 +10,7 @@ export default function Page({ posts }: { posts: Post[] }) {
     <>
       <NewHeader />
       <div className="mx-auto mt-8 flex max-w-6xl flex-col gap-8 text-xl md:mt-[4.5rem] md:flex-row md:gap-16">
-        <nav className="flex snap-x items-start gap-4 overflow-scroll px-6 scrollbar-hide md:sticky md:top-0 md:flex-col md:px-0">
-          <Link
-            href="/"
-            className="flex snap-center flex-row items-center gap-8 rounded bg-brand p-4"
-          >
-            <House size={32} color="white" weight="fill" />
-            <span className="font-bold text-white">Últimas</span>
-          </Link>
-          <Link
-            href="/"
-            className="flex snap-center flex-row items-center gap-8 rounded bg-brand-10 p-4 opacity-80 transition-all duration-150 hover:bg-brand-10 md:bg-transparent"
-          >
-            <TrendUp size={32} color="black" weight="regular" />
-            <span className="font-medium text-black">Bombando</span>
-          </Link>
-          <Link
-            href="/"
-            className="flex snap-center flex-row items-center gap-8 rounded bg-brand-10 p-4 opacity-80 transition-all duration-150 hover:bg-brand-10 md:bg-transparent"
-          >
-            <Receipt size={32} color="black" weight="regular" />
-            <span className="font-medium text-black">Denunciar</span>
-          </Link>
-        </nav>
+        <NewNavigation />
         <NewPostList posts={posts} />
 
         {/* <div className="flex flex-col items-start gap-6 rounded md:flex-row md:gap-8">

@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
 import authorType from './author'
+import veracityType from './veracity'
 
 /**
  * This file is the schema definition for a post.
@@ -70,17 +71,24 @@ export default defineType({
       type: 'reference',
       to: [{ type: authorType.name }],
     }),
+    defineField({
+      name: 'veracity',
+      title: 'Veracity',
+      type: 'reference',
+      to: [{ type: veracityType.name }],
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       author: 'author.name',
+      veracity: 'veracity.veracity',
       date: 'date',
       media: 'coverImage',
     },
-    prepare({ title, media, author, date }) {
+    prepare({ title, media, author, veracity, date }) {
       const subtitles = [
-        author && `by ${author}`,
+        author && `by ${author}`, veracity && veracity,
         date && `on ${format(parseISO(date), 'LLL d, yyyy')}`,
       ].filter(Boolean)
 
