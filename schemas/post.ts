@@ -77,6 +77,14 @@ export default defineType({
       type: 'reference',
       to: [{ type: veracityType.name }],
     }),
+    defineField({
+        name: 'myTags',
+        title: 'Tags',
+        type: 'tags',
+        options: {
+            includeFromRelated: 'myTags'
+  }
+    })
   ],
   preview: {
     select: {

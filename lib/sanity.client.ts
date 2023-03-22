@@ -8,6 +8,8 @@ import {
   type Settings,
   settingsQuery,
   indexQueryFromIndex,
+  indexQueryBombando,
+  indexQueryFromIndexBombando,
 } from 'lib/sanity.queries'
 import { createClient } from 'next-sanity'
 
@@ -28,6 +30,20 @@ export async function getSettings(): Promise<Settings> {
 export async function getAllPosts(): Promise<Post[]> {
   if (client) {
     return (await client.fetch(indexQuery)) || []
+  }
+  return []
+}
+
+export async function getAllPostsBombando(): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(indexQueryBombando)) || []
+  }
+  return []
+}
+
+export async function getAllPostsFromIndexBombando(lastDate: string): Promise<Post[]> {
+  if (client) {
+    return (await client.fetch(indexQueryFromIndexBombando, { lastDate })) || []
   }
   return []
 }

@@ -14,6 +14,7 @@ import authorType from 'schemas/author'
 import postType from 'schemas/post'
 import veracityType from 'schemas/veracity'
 import settingsType from 'schemas/settings'
+import { tags } from 'sanity-plugin-tags'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
@@ -46,5 +47,6 @@ export default defineConfig({
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
+    tags({})
   ],
 })

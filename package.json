@@ -24,14 +24,17 @@
     "intl-segmenter-polyfill": "^0.4.4",
     "next": "^13.2.4",
     "next-sanity": "^4.1.5",
+    "nprogress": "^0.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-infinite-scroll-component": "^6.1.0",
     "sanity": "^3.7.0",
     "sanity-plugin-asset-source-unsplash": "^1.0.6",
+    "sanity-plugin-tags": "^2.0.1",
     "styled-components": "^5.3.9",
     "suspend-react": "^0.0.9",
     "swr": "^2.1.0",
+    "tags": "^2.0.10",
     "tailwind-scrollbar-hide": "^1.1.7"
   },
   "devDependencies": {

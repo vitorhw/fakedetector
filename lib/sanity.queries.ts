@@ -8,13 +8,24 @@ const postFields = groq`
   coverImage,
   "slug": slug.current,
   "author": author->{name, picture},
-  "veracity": veracity->{veracity}
+  "veracity": veracity->{veracity},
+  myTags
 `
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
 
 export const indexQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) [0...5] {
+  ${postFields}
+}`
+
+export const indexQueryBombando = groq`
+*[_type == "post" && "Bombando" in myTags[].label] | order(date desc, _updatedAt desc) [0...5] {
+  ${postFields}
+}`
+
+export const indexQueryFromIndexBombando = groq`
+*[_type == "post" && date < $lastDate && "Bombando" in myTags[].label] | order(date desc, _updatedAt desc) [0...5] {
   ${postFields}
 }`
 
