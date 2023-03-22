@@ -2,9 +2,8 @@ import type { Post } from 'lib/sanity.queries'
 import NewPostTile from './NewPostTile'
 
 export function NewPostList({ posts }: { posts: Post[] }) {
-
   return (
-    <section className="flex flex-col items-start gap-8 px-6 md:px-0">
+    <section className="flex w-full flex-col items-start gap-8 px-6 md:px-0">
       {posts.map((post) => (
         <NewPostTile
           key={post._id}
