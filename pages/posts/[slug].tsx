@@ -34,6 +34,7 @@ import {
   WhatsappShareButton,
 } from 'react-share'
 import { NewPostList } from 'components/NewPostList'
+import PostPageHead from 'components/PostPageHead'
 
 const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
 
@@ -87,6 +88,7 @@ export default function ProjectSlugRoute(props: PageProps) {
 
   return (
     <>
+      <PostPageHead settings={settings} post={post} />
       <NewHeader />
       <main className="mx-auto mt-8 flex max-w-6xl flex-col gap-8 px-6 md:mt-[4.5rem] md:gap-[4.5rem] md:px-0">
         <div>
@@ -204,8 +206,6 @@ export const getStaticProps: GetStaticProps<
       notFound: true,
     }
   }
-
-  console.log(post)
 
   return {
     props: {

@@ -1,13 +1,25 @@
-import { getAllPosts, getAllPostsFromIndex } from 'lib/sanity.client'
-import { Post } from 'lib/sanity.queries'
+import {
+  getAllPosts,
+  getAllPostsFromIndex,
+  getSettings,
+} from 'lib/sanity.client'
+import { Post, Settings } from 'lib/sanity.queries'
 import { NewHeader } from 'components/NewHeader'
 import { NewPostList } from 'components/NewPostList'
 import { NewNavigation } from 'components/NewNavigation'
 import { useState } from 'react'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Skeleton } from 'components/Skeleton'
+import IndexPageHead from 'components/IndexPageHead'
 
-export default function Page({ posts }: { posts: Post[] }) {
+interface PageProps {
+  posts: Post[]
+  settings: Settings
+}
+
+export default function Page(props: PageProps) {
+  const { posts, settings } = props
+
   const [postList, setPostList] = useState(posts)
   const [lastDate, setlastDate] = useState(posts.slice(-1)[0].date)
 
@@ -31,6 +43,7 @@ export default function Page({ posts }: { posts: Post[] }) {
 
   return (
     <>
+      <IndexPageHead settings={settings} />
       <NewHeader />
       <div className="mx-auto mt-8 flex max-w-6xl flex-col gap-8 text-xl md:mt-[4.5rem] md:flex-row md:gap-16">
         <NewNavigation />
@@ -62,11 +75,15 @@ export default function Page({ posts }: { posts: Post[] }) {
 }
 
 export async function getStaticProps() {
-  const posts = await getAllPosts()
+  const [settings, posts = []] = await Promise.all([
+    getSettings(),
+    getAllPosts(),
+  ])
 
   return {
     props: {
       posts,
+      settings,
     },
     revalidate: 10,
   }
