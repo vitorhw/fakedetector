@@ -6,6 +6,7 @@ import {
   Eye,
   MagnifyingGlass,
   SealCheck,
+  Warning,
 } from '@phosphor-icons/react'
 import { PortableText } from '@portabletext/react'
 import { PreviewSuspense } from '@sanity/preview-kit'
@@ -20,6 +21,19 @@ import { GetStaticProps } from 'next'
 import Link from 'next/link'
 import { lazy } from 'react'
 import styles from '../../components/PostBody.module.css'
+import { NewHeader } from 'components/NewHeader'
+import Image from 'next/image'
+import { urlForImage } from 'lib/sanity.image'
+import { intlFormatDistance, parseISO } from 'date-fns'
+import {
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from 'react-share'
+import { NewPostList } from 'components/NewPostList'
 
 const PreviewPostPage = lazy(() => import('components/PreviewPostPage'))
 
@@ -41,7 +55,7 @@ interface PreviewData {
 
 export default function ProjectSlugRoute(props: PageProps) {
   const { settings, post, morePosts, preview, token } = props
-
+  const dateVar = parseISO(post.date)
   if (preview) {
     return (
       <PreviewSuspense
@@ -64,76 +78,110 @@ export default function ProjectSlugRoute(props: PageProps) {
       </PreviewSuspense>
     )
   }
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
 
   return (
-    <main className="mx-auto mt-8 flex max-w-6xl flex-col gap-8 px-6 md:gap-[4.5rem] md:px-0">
-      <div className="flex items-center justify-between ">
-        <div className="flex items-center text-[2rem] font-bold md:text-[3rem]">
-          {/* <spanirTrafficControl size={54} /> */}
-          <span>fake</span>
-          <span className="text-brand">detector</span>
+    <>
+      <NewHeader />
+      <main className="mx-auto mt-8 flex max-w-6xl flex-col gap-8 px-6 md:mt-[4.5rem] md:gap-[4.5rem] md:px-0">
+        <div>
+          <Link href="/" className="flex gap-6 text-xl font-medium">
+            <ArrowLeft size={24} color="black" />
+            <p>Voltar</p>
+          </Link>
         </div>
-        <form className="relative hidden items-center md:flex">
-          <MagnifyingGlass
-            size={16}
-            color="black"
-            className="absolute left-0 ml-6 opacity-30"
-          />
+        <Image
+          className="h-[20rem] w-full object-cover shadow-sm"
+          width={2000}
+          height={1000}
+          alt={`Cover Image for ${post.title}`}
+          src={urlForImage(post.coverImage).height(1000).width(2000).url()}
+          sizes="100vw"
+          priority
+        />
+        <main className="mx-auto flex max-w-2xl flex-col items-start gap-8">
+          <h1 className="text-4xl font-medium">{post.title}</h1>
+          <div className="flex w-full items-center gap-8">
+            <div
+              className={`flex items-center gap-2 rounded p-2 ${
+                post.veracity?.veracity == 'FAKE'
+                  ? 'bg-brand-orange'
+                  : 'bg-brand'
+              }`}
+            >
+              {post.veracity?.veracity == 'FAKE' ? (
+                <Warning size={24} color="white" />
+              ) : (
+                <Check size={24} color="white" />
+              )}
+              <p className="text-base font-medium text-white">
+                {post.veracity?.veracity}
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <TwitterShareButton
+                url={'https://fakedetector.vercel.app/posts/' + post.slug}
+              >
+                <TwitterIcon size={24} round />
+              </TwitterShareButton>
+              <WhatsappShareButton
+                url={'https://fakedetector.vercel.app/posts/' + post.slug}
+              >
+                <WhatsappIcon size={24} round />
+              </WhatsappShareButton>
+              <FacebookShareButton
+                url={'https://fakedetector.vercel.app/posts/' + post.slug}
+              >
+                <FacebookIcon size={24} round />
+              </FacebookShareButton>
+            </div>
+          </div>
 
-          <input
-            type="search"
-            className="block w-full rounded-2xl bg-brand-10 py-4 px-6 pl-16 text-sm text-gray-600 focus:border-brand focus:ring-brand"
-            placeholder="Pesquisar notícias"
-            required
-          />
-        </form>
-        <button className="md:hidden">
-          <MagnifyingGlass size={32} color="black" className="opacity-60" />
-        </button>
-      </div>
-      <div>
-        <Link href="/" className="flex gap-6 text-xl font-medium">
-          <ArrowLeft size={24} color="black" />
-          <p>Voltar</p>
-        </Link>
-      </div>
-      <img
-        src="https://picsum.photos/seed/picsum/200/300"
-        alt="banner"
-        className="h-[20rem] w-full object-cover shadow-lg"
-      />
-      <main className="mx-auto flex max-w-2xl flex-col items-start gap-8">
-        <h1 className="text-4xl font-medium">
-          Governo dos EUA pede mais documentos ao Brasil para decidir sobre
-          extradição de Allan do Santos
-        </h1>
-        <div className="flex items-center gap-2 rounded bg-brand p-2">
-          <Check size={24} color="white" />
-          <p className="text-base font-medium text-white">FATO</p>
-        </div>
-        <div className="flex flex-col items-start gap-2 opacity-60 md:flex-row md:items-center">
-          <div className="flex items-center gap-2">
-            <CalendarBlank size={16} color="black" />
-            <small className="font-regular text-sm">Há 13 horas atrás</small>
+          <div className="flex flex-col items-start gap-2 opacity-60 md:flex-row md:items-center">
+            <div className="flex items-center gap-2">
+              <CalendarBlank size={16} color="black" />
+              <small className="font-regular text-sm">
+                <time dateTime={post.date}>
+                  {intlFormatDistance(new Date(dateVar), new Date(), {
+                    locale: 'pt',
+                  })}
+                </time>
+              </small>
+            </div>
+            <Dot className="hidden md:block" />
+            <div className="flex items-center gap-2">
+              <SealCheck size={16} color="black" />
+              <small className="font-regular text-sm">
+                verificado por {post.author?.name}
+              </small>
+            </div>
           </div>
-          <Dot className="hidden md:block" />
-          <div className="flex items-center gap-2">
-            <SealCheck size={16} color="black" />
-            <small className="font-regular text-sm">
-              Verificado por Anonimo
-            </small>
+          <div className={`${styles.portableText}`}>
+            <PortableText value={post.content} />
           </div>
-          <Dot className="hidden md:block" />
-          <div className="flex items-center gap-2">
-            <Eye size={16} color="black" />
-            <small className="font-regular text-sm">13k+ leituras</small>
+        </main>
+        <div className="my-8 h-[1px] w-full bg-brand-10"></div>
+        <div className="mx-auto mb-8 max-w-6xl">
+          {morePosts?.length > 0 && <NewPostList posts={morePosts} />}
+          <div className="animation-pulse my-8 mt-16 flex w-full items-center justify-around rounded bg-brand-10 p-8">
+            <p>
+              Ops... Você chegou ao fim!{' '}
+              <span
+                className="cursor-pointer text-brand no-underline hover:underline"
+                onClick={scrollToTop}
+              >
+                Voltar ao topo.
+              </span>
+            </p>
           </div>
-        </div>
-        <div className={`${styles.portableText}`}>
-          <PortableText value={post.content} />
         </div>
       </main>
-    </main>
+    </>
   )
 }
 
@@ -157,6 +205,8 @@ export const getStaticProps: GetStaticProps<
     }
   }
 
+  console.log(post)
+
   return {
     props: {
       post,
@@ -165,6 +215,7 @@ export const getStaticProps: GetStaticProps<
       preview,
       token: previewData.token ?? null,
     },
+    revalidate: 30,
   }
 }
 
