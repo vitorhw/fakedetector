@@ -169,6 +169,9 @@ export default function ProjectSlugRoute(props: PageProps) {
         </main>
         <div className="my-8 h-[1px] w-full bg-brand-10"></div>
         <div className="mx-auto mb-8 max-w-6xl">
+          <h4 className="mb-16 translate-x-6 text-4xl font-medium md:translate-x-4">
+            Leia também
+          </h4>
           {morePosts?.length > 0 && <NewPostList posts={morePosts} />}
           <div className="animation-pulse my-8 mt-16 flex w-full items-center justify-around rounded bg-brand-10 p-8">
             <p>

@@ -13,7 +13,7 @@ export default function Document() {
         />
         <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8928398017937871"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.GOOGLE_ADS_ID}`}
           crossOrigin="anonymous"
           strategy="beforeInteractive"
         />
