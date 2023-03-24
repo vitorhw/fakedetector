@@ -1,4 +1,5 @@
 import { Head, Html, Main, NextScript } from 'next/document'
+import Script from 'next/script'
 
 export default function Document() {
   return (
@@ -10,11 +11,12 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap"
           rel="stylesheet"
         />
-        <script
+        <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8928398017937871"
           crossOrigin="anonymous"
-        ></script>
+          strategy="beforeInteractive"
+        />
       </Head>
       <body className="bg-white text-black">
         <Main />
