@@ -17,6 +17,7 @@ export default function Document() {
           crossOrigin="anonymous"
           strategy="beforeInteractive"
         />
+
       </Head>
       <body className="bg-white text-black">
         <Main />
