@@ -10,6 +10,11 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap"
           rel="stylesheet"
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8928398017937871"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
       <body className="bg-white text-black">
         <Main />
