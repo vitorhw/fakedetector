@@ -17,7 +17,21 @@ export default function Document() {
           crossOrigin="anonymous"
           strategy="beforeInteractive"
         />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+  function gtag(){window.dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', ${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS});`,
+          }}
+        />
       </Head>
       <body className="bg-white text-black">
         <Main />
